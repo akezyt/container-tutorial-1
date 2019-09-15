@@ -1,0 +1,53 @@
+{
+  "name": "greeting-service",
+  "description": "Greeting service",
+  "author": "kevinpollet <pollet.kevin@gmail.com>",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "bugs": "https://github.com/kevinpollet/typescript-docker-multi-stage-build/issues",
+  "homepage": "https://github.com/kevinpollet/typescript-docker-multi-stage-build#readme",
+  "repository": "github:kevinpollet/typescript-docker-multi-stage-build",
+  "scripts": {
+    "clean": "rm -rf lib",
+    "build": "tsc -p tsconfig.build.json",
+    "format": "prettier --write '*.{yml,json,md}' '{src,test}/**/*'",
+    "start": "node 'lib/server.js'",
+    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess 'node lib/server.js'",
+    "test": "jest --preset ts-jest",
+    "prebuild": "npm run clean",
+    "prestart": "npm run build",
+    "prestart:dev": "npm run clean"
+  },
+  "dependencies": {
+    "fastify": "2.8.0",
+    "uuid": "3.3.3"
+  },
+  "devDependencies": {
+    "@kevinpollet/tsconfig": "0.1.0",
+    "@types/jest": "24.0.18",
+    "@types/node": "12.7.4",
+    "@types/uuid": "3.4.5",
+    "husky": "3.0.5",
+    "jest": "24.9.0",
+    "lint-staged": "9.2.5",
+    "prettier": "1.18.2",
+    "ts-jest": "24.0.2",
+    "tsc-watch": "3.0.1",
+    "typescript": "3.6.2"
+  },
+  "prettier": {
+    "trailingComma": "es5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,yml,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
